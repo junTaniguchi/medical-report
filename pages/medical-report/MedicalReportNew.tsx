@@ -12,10 +12,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-export const MedicalReportCreate = () => {
+export const MedicalReportNew = (props:any) => {
     const paperStyle = {
         wigth: "90%",
-        margin: "16px"
+        margin: "16px",
+        padding: "16px",
     }
     
     const [date, setDate] = useState<Date | null>(new Date());
@@ -65,20 +66,23 @@ export const MedicalReportCreate = () => {
             minPressure: minPressure,
             maxPressure: maxPressure,
             calorie: calorie,
-            weight: weight
+            weight: weight,
+            memo: ''
         }
+        console.log(medicalReport);
+        props.setMedicalReport(medicalReport);
+        props.setIsWritten(true);        
+
     }
     return(
         <>
             <Paper elevation={3} style={paperStyle}>
                 <Grid container spacing={2}>
                     {/* 1段目 */}
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         電子カルテ
                     </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -91,9 +95,7 @@ export const MedicalReportCreate = () => {
                         </LocalizationProvider>
                     </Grid>
                     {/* 2段目 */}
-                    <Grid item xs={3}>
-                    </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -105,7 +107,7 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -117,12 +119,8 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
-                    </Grid>
                     {/* 3段目 */}
-                    <Grid item xs={3}>
-                    </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -134,7 +132,7 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -146,12 +144,8 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
-                    </Grid>
                     {/* 4段目 */}
-                    <Grid item xs={3}>
-                    </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -163,24 +157,20 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
                             type='number'
-                            label="最低血圧(BP)"
+                            label="最高血圧(BP)"
                             onChange={onChangeBPMax}
                             InputLabelProps={{
                                 shrink: true,
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
-                    </Grid>
                     {/* 5段目 */}
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -192,7 +182,7 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             required
                             id="outlined-required"
@@ -204,20 +194,19 @@ export const MedicalReportCreate = () => {
                             }}
                         />
                     </Grid>
-                    </Grid>
-                    <Grid item xs={3}>
                     {/* 6段目 */}
                     <Grid item xs={12}>
                     </Grid>
                     {/* 7段目 */}
-                    <Grid item xs={5}>
+                    <Grid item xs={8}>
                     </Grid>
                     <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button variant="contained" endIcon={<SendIcon />}>
-                            決定
+                        <Button variant="contained" endIcon={<SendIcon />} onClick={createMedicalReport} >
+                            起票
                         </Button>
+                    </Grid>
+                    {/* 6段目 */}
+                    <Grid item xs={12}>
                     </Grid>
                 </Grid>
             </Paper>
