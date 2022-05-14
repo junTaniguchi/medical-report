@@ -9,19 +9,19 @@ import Grid from '@mui/material/Grid';
 
 const Home: NextPage = () => {
   const [contentsType, setContentsType] = useState<number>(0);
-  // console.log(`contentsTag: ${contentsTag}`);
 
-  let contentsTag:any;
+  // let contentsTag:any;
   const ChangeContents = () => {
     console.log(`ChangeContents.contentsType ${contentsType}`);
     switch(contentsType){
       case 1:
-        contentsTag = <MedicalReportInsertIndex />
+        return <MedicalReportInsertIndex />
       case 2:
-        contentsTag = <MedicalReportSelectIndex />
+        return <MedicalReportSelectIndex />
+      default:
+        return null; 
     }
-    console.log(`switch contentsTag: ${contentsTag}`);
-    return (contentsTag);
+    // return (contentsTag);
   };
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const Home: NextPage = () => {
           <Sidebar contentsType={contentsType} setContentsType={setContentsType}/>
         </Grid>
         <Grid item xs={9}>
-          {/* <ChangeContents {...contentsType} /> */}
           <ChangeContents />
         </Grid>
       </Grid>

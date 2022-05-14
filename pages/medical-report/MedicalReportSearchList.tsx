@@ -3,7 +3,7 @@ import { DataGrid, GridColDef, GridToolbar, jaJP } from '@mui/x-data-grid';
 
 import type { MedicalReportType } from '../../type/medicalReportType';
 
-export const MedicalReportSearchList = (props:MedicalReportType[]) => {
+export const MedicalReportSearchList = (props) => {
     const medicalReports:MedicalReportType[] = props.medicalReports;
     // date: Date | null;
     // thermometer: number;
@@ -16,6 +16,10 @@ export const MedicalReportSearchList = (props:MedicalReportType[]) => {
     // weight: number;
     // memo: string;
     const columns: GridColDef[] = [
+        {
+            field: 'show', headerName: '詳細', width: 40, sortable: false,
+            renderCell: (params) => <ShowButton rowId={ params.id } />
+        },
         { field: 'date', headerName: '診察日', width: 40 },
         { field: 'thermometer', headerName: '体温', width: 40 },
         { field: 'heartRate', headerName: '脈拍', width: 40 },

@@ -12,8 +12,8 @@ import { MedicalReportSearchList } from './MedicalReportSearchList';
 export const MedicalReportSearch = (props:any) => {
 
     const [isSearched, setIsSearched] = useState<boolean>(false);
-    const [minDate, setMinDate] = useState<Date | null>(New Date());
-    const [maxDate, setMaxDate] = useState<Date | null>(New Date());
+    const [minDate, setMinDate] = useState<Date | null>(new Date());
+    const [maxDate, setMaxDate] = useState<Date | null>(new Date());
     const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
     const [medicalReports, setMedicalReports] = useState<MedicalReportType[]>([]);
 

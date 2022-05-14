@@ -12,7 +12,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-export const MedicalReportNew = (props:any) => {
+export const MedicalReportNew = (props) => {
     const paperStyle = {
         wigth: "90%",
         margin: "16px",
@@ -71,7 +71,8 @@ export const MedicalReportNew = (props:any) => {
         }
         console.log(medicalReport);
         props.setMedicalReport(medicalReport);
-        props.setIsWritten(true);        
+        props.setIsWritten(true);
+        console.log(`MedicalReportNew :${props}`);      
 
     }
     return(

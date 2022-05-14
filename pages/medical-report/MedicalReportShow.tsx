@@ -3,7 +3,8 @@ import type { MedicalReportType } from '../../type/medicalReportType';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -23,10 +24,10 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                     <Grid item xs={4}>
                     </Grid>
                     <Grid item xs={4}>
-                        電子カルテ
+                        電子カルテMedicalReportShow
                     </Grid>
                     <Grid item xs={4}>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
                             label="診察日"
@@ -35,7 +36,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                                 setDate(newValue);
                             }}
                         />
-                        </LocalizationProvider>
+                        </LocalizationProvider> */}
                     </Grid>
                     {/* 2段目 */}
                     <Grid item xs={4}>
