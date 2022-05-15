@@ -9,7 +9,7 @@ export const MedicalReportSelectIndex = () => {
     console.log(`MedicalReportSelectIndex`);
     return(
         <Fragment>
-            {isShowed? <MedicalReportSearch isShowed={isShowed} setIsShowed={setIsShowed} /> : <MedicalReportShow medicalReport={medicalReport}/> }
+            {isShowed? <MedicalReportShow medicalReport={medicalReport}/> : <MedicalReportSearch isShowed={isShowed} setIsShowed={setIsShowed} /> }
         </Fragment>
     )
 }

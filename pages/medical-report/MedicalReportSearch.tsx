@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect, Fragment } from 'react';
-import type { MedicalReportType } from '../../type/medicalReportType';
+import type { SearchedMedicalReportType } from '../../type/SearchedMedicalReportType';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -14,13 +14,18 @@ export const MedicalReportSearch = (props:any) => {
     const [isSearched, setIsSearched] = useState<boolean>(false);
     const [minDate, setMinDate] = useState<Date | null>(new Date());
     const [maxDate, setMaxDate] = useState<Date | null>(new Date());
-    const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
-    const [medicalReports, setMedicalReports] = useState<MedicalReportType[]>([]);
+    // const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
+    const [searchedMedicalReports, setSearchedMedicalReports] = useState<SearchedMedicalReportType[]>([]);
 
     const searchMedicalReport = () => {
+        const searchData = {
+            minDate: minDate,
+            maxDate: maxDate
+        }
         // デバッグ用
-        const sampleData: MedicalReportType = {
-            date: null,
+        const sampleData: SearchedMedicalReportType = {
+            id: 1,
+            date: new Date(),
             thermometer: 0,
             heartRate: 0,
             breathingRate: 0,
@@ -32,9 +37,9 @@ export const MedicalReportSearch = (props:any) => {
             memo: ''
         }
         // デバッグ用
-        setMedicalReport(sampleData);
-        setMedicalReports([medicalReport]);
-        console.log(medicalReports);
+        setSearchedMedicalReports([sampleData]);
+        console.log(`${sampleData}`);
+        console.log(`${searchedMedicalReports}`);
         /////////////////
         setIsSearched(true);
     }
@@ -72,7 +77,7 @@ export const MedicalReportSearch = (props:any) => {
                     </LocalizationProvider>
                 </Grid>
             </Grid>
-            {isSearched? <MedicalReportSearchList medicalReports={medicalReports}/> : null}
+            {isSearched? <MedicalReportSearchList searchedMedicalReports={searchedMedicalReports}/> : null}
         </Fragment>
     )
 }
