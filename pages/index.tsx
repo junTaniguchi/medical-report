@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
-import { Header } from './Header'
-import { Sidebar } from './Sidebar'
-import { MedicalReportInsertIndex } from './medical-report/MedicalReportInsertIndex'
-import { MedicalReportSelectIndex } from './medical-report/MedicalReportSelectIndex'
+import { Header } from '../components/Header'
+import { Sidebar } from '../components/Sidebar'
+import { MedicalReportInsertIndex } from '../components/medical-report/insert/MedicalReportInsertIndex'
+import { MedicalReportSelectIndex } from '../components/medical-report/select/MedicalReportSelectIndex'
 // import { Contents } from './Contents'
 import Grid from '@mui/material/Grid';
 
