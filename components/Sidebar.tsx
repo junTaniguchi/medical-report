@@ -16,19 +16,19 @@ export const Sidebar = (props:any) => {
     
     const changeContentsCreate = () => {
         props.setContentsType(MEDICAL_REPORT_CREATE);
-        console.log(props.contentsType);
-        console.log(`Sidebar.contentsType ${props.contentsType}`);
+        // console.log(props.contentsType);
+        // console.log(`Sidebar.contentsType ${props.contentsType}`);
         
     }
     const changeContentsSearch = () => {
         props.setContentsType(MEDICAL_REPORT_SEARCH);
-        console.log(props.contentsType);
-        console.log(`Sidebar.contentsType ${props.ontentsType}`);
+        // console.log(props.contentsType);
+        // console.log(`Sidebar.contentsType ${props.ontentsType}`);
     }
     const changeContentsGraph = () => {
         props.setContentsType(MEDICAL_REPORT_GRAPH);
-        console.log(props.contentsType);
-        console.log(`Sidebar.contentsType ${props.contentsType}`);
+        // console.log(props.contentsType);
+        // console.log(`Sidebar.contentsType ${props.contentsType}`);
     }
     return (
         <>

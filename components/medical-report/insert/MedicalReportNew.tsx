@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import type { MedicalReportType } from '../../type/medicalReportType';
+import type { MedicalReportType } from '../../../type/medicalReportType';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
@@ -12,7 +12,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-export const MedicalReportNew = (props) => {
+export const MedicalReportNew = (props:any) => {
     const paperStyle = {
         wigth: "90%",
         margin: "16px",

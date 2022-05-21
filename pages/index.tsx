@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import { Header } from '../components/Header'
 import { Sidebar } from '../components/Sidebar'
+import { SelectIndexProvider } from '../context/SelectIndexContext'
 import { MedicalReportInsertIndex } from '../components/medical-report/insert/MedicalReportInsertIndex'
 import { MedicalReportSelectIndex } from '../components/medical-report/select/MedicalReportSelectIndex'
 // import { Contents } from './Contents'
@@ -12,12 +13,16 @@ const Home: NextPage = () => {
 
   // let contentsTag:any;
   const ChangeContents = () => {
-    console.log(`ChangeContents.contentsType ${contentsType}`);
+    // console.log(`ChangeContents.contentsType ${contentsType}`);
     switch(contentsType){
       case 1:
         return <MedicalReportInsertIndex />
       case 2:
-        return <MedicalReportSelectIndex />
+        return(
+          <SelectIndexProvider>
+            <MedicalReportSelectIndex />
+          </SelectIndexProvider>
+        )
       default:
         return null; 
     }
@@ -25,7 +30,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log(`useEffect.contentsType ${contentsType}`);
+    // console.log(`useEffect.contentsType ${contentsType}`);
     ChangeContents();
   },[contentsType])
 

@@ -1,5 +1,6 @@
-import { ChangeEvent, useState, useEffect, Fragment } from 'react';
-import type { SearchedMedicalReportType } from '../../type/SearchedMedicalReportType';
+import { useContext, useState, useEffect, Fragment } from 'react';
+import {OpenListStatusContext} from '../../../context/SelectIndexContext'
+import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -9,9 +10,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MedicalReportSearchList } from './MedicalReportSearchList';
 
-export const MedicalReportSearch = (props:any) => {
+export const MedicalReportSearch = () => {
 
-    const [isSearched, setIsSearched] = useState<boolean>(false);
+    const {searchListStatus, changeSearchListStatus} = useContext(OpenListStatusContext);
+    console.log(`searchListStatus: ${searchListStatus}`);
     const [minDate, setMinDate] = useState<Date | null>(new Date());
     const [maxDate, setMaxDate] = useState<Date | null>(new Date());
     // const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
@@ -38,10 +40,10 @@ export const MedicalReportSearch = (props:any) => {
         }
         // デバッグ用
         setSearchedMedicalReports([sampleData]);
-        console.log(`${sampleData}`);
+        // console.log(`${sampleData}`);
         console.log(`${searchedMedicalReports}`);
         /////////////////
-        setIsSearched(true);
+        changeSearchListStatus(true);
     }
 
     return(
@@ -52,7 +54,7 @@ export const MedicalReportSearch = (props:any) => {
                         検索
                     </Button>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -62,9 +64,8 @@ export const MedicalReportSearch = (props:any) => {
                                 setMinDate(newValue);
                             }}
                         />
+                        〜
                     </LocalizationProvider>
-                </Grid>
-                <Grid item xs={4}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -77,7 +78,7 @@ export const MedicalReportSearch = (props:any) => {
                     </LocalizationProvider>
                 </Grid>
             </Grid>
-            {isSearched? <MedicalReportSearchList searchedMedicalReports={searchedMedicalReports}/> : null}
+            {searchListStatus? <MedicalReportSearchList searchedMedicalReports={searchedMedicalReports}/> : null}
         </Fragment>
     )
 }

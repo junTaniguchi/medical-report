@@ -1,11 +1,11 @@
 import { ChangeEvent, useState, useEffect, Fragment } from 'react';
 import { DataGrid, GridColDef, GridToolbar, jaJP } from '@mui/x-data-grid';
+import { ShowButton } from '../../ShowButton';
+import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
 
-import type { SearchedMedicalReportType } from '../../type/SearchedMedicalReportType';
-
-export const MedicalReportSearchList = (props) => {
-    console.log(`MedicalReportSearchList : ${props}`);
-    const searchedMedicalReports:SearchedMedicalReportType[] = props.SearchedMedicalReports;
+export const MedicalReportSearchList = (props:SearchedMedicalReportType[]) => {
+    console.log(props);
+    const searchedMedicalReports:SearchedMedicalReportType[] = props.searchedMedicalReports;
     // date: Date | null;
     // thermometer: number;
     // heartRate: number;
@@ -17,21 +17,21 @@ export const MedicalReportSearchList = (props) => {
     // weight: number;
     // memo: string;
     const columns: GridColDef[] = [
-        // {
-        //     field: 'show', headerName: '詳細', width: 40, sortable: false,
-        //     renderCell: (params) => <ShowButton rowId={ params.date } />
-        // },
-        { field: 'id', headerName: 'ID', width: 40 },
-        { field: 'date', headerName: '診察日', width: 40 },
-        { field: 'thermometer', headerName: '体温', width: 40 },
-        { field: 'heartRate', headerName: '脈拍', width: 40 },
-        { field: 'breathingRate', headerName: '呼吸数', width: 40 },
-        { field: 'oxygenRate', headerName: '血中酸素濃度', width: 40 },
-        { field: 'minPressure', headerName: '最低血圧', width: 40 },
-        { field: 'maxPressure', headerName: '最高血圧', width: 40 },
-        { field: 'calorie', headerName: '摂取カロリー', width: 40 },
-        { field: 'weight', headerName: '体重', width: 40 },
-        { field: 'memo', headerName: '備考', width: 40 },
+        {
+            field: 'show', headerName: '詳細', width: 40, sortable: false,
+            renderCell: (params) => <ShowButton rowId={ params.id } />
+        },
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'date', headerName: '診察日', width: 200 },
+        { field: 'thermometer', headerName: '体温', width: 70 },
+        { field: 'heartRate', headerName: '脈拍', width: 70 },
+        { field: 'breathingRate', headerName: '呼吸数', width: 70 },
+        { field: 'oxygenRate', headerName: '血中酸素濃度', width: 70 },
+        { field: 'minPressure', headerName: '最低血圧', width: 70 },
+        { field: 'maxPressure', headerName: '最高血圧', width: 70 },
+        { field: 'calorie', headerName: '摂取カロリー', width: 70 },
+        { field: 'weight', headerName: '体重', width: 70 },
+        { field: 'memo', headerName: '備考', width: 70 },
       ];
     
     return(

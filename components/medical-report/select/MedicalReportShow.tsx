@@ -1,4 +1,6 @@
 //MedicalReportShow.tsx
+import { useContext } from 'react';
+import { ShowUniqueReportContext } from '../../../context/SelectIndexContext'
 import type { MedicalReportType } from '../../type/medicalReportType';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -9,8 +11,10 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-export const MedicalReportShow = (props:MedicalReportType[]) => {
-    const {date, thermometer, heartRate, breathingRate, oxygenRate, minPressure, maxPressure, calorie, weight, memo} = props
+export const MedicalReportShow = () => {
+    const {medicalReport, setMedicalReport} = useContext(ShowUniqueReportContext);
+    const {date, thermometer, heartRate, breathingRate, oxygenRate, minPressure, maxPressure, calorie, weight, memo} = medicalReport;
+    console.log(medicalReport);
     const paperStyle = {
         wigth: "90%",
         margin: "16px",
@@ -24,7 +28,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                     <Grid item xs={4}>
                     </Grid>
                     <Grid item xs={4}>
-                        電子カルテMedicalReportShow
+                        電子カルテ
                     </Grid>
                     <Grid item xs={4}>
                         {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -47,6 +51,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="体温(BT)"
+                            value={thermometer}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -58,6 +63,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="脈拍(HR)"
+                            value={heartRate}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -72,6 +78,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="呼吸数(RR)"
+                            value={breathingRate}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -83,6 +90,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="血中酸素濃度(SpO2)"
+                            value={oxygenRate}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -97,6 +105,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="最低血圧(BP)"
+                            value={minPressure}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -108,6 +117,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="最高血圧(BP)"
+                            value={maxPressure}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -122,6 +132,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="摂取カロリー(kcal)"
+                            value={calorie}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -133,6 +144,7 @@ export const MedicalReportShow = (props:MedicalReportType[]) => {
                             id="outlined-required"
                             type='number'
                             label="体重(kg)"
+                            value={weight}
                             InputLabelProps={{
                                 shrink: true,
                             }}
