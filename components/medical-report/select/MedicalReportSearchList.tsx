@@ -4,7 +4,6 @@ import { ShowButton } from '../../ShowButton';
 import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
 
 export const MedicalReportSearchList = (props:SearchedMedicalReportType[]) => {
-    console.log(props);
     const searchedMedicalReports:SearchedMedicalReportType[] = props.searchedMedicalReports;
     // date: Date | null;
     // thermometer: number;
@@ -19,7 +18,8 @@ export const MedicalReportSearchList = (props:SearchedMedicalReportType[]) => {
     const columns: GridColDef[] = [
         {
             field: 'show', headerName: '詳細', width: 40, sortable: false,
-            renderCell: (params) => <ShowButton rowId={ params.id } />
+            // renderCell: (params) => <ShowButton rowId={ params.id } />
+            renderCell: (params) => <ShowButton params={ params } />
         },
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'date', headerName: '診察日', width: 200 },

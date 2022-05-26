@@ -1,7 +1,7 @@
 //MedicalReportShow.tsx
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, ChangeEvent } from 'react';
 import { ShowUniqueReportContext } from '../../../context/SelectIndexContext'
-import type { MedicalReportType } from '../../type/medicalReportType';
+import type { MedicalReportType } from '../../../type/medicalReportType';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -10,11 +10,25 @@ import Button from '@mui/material/Button';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { collection, doc, setDocs, updateDoc, Timestamp, setDoc } from "firebase/firestore";
+import {format} from 'date-fns/format';
+import { dbConnect } from "../../firebase/firestoreConnect";
+import { async } from '@firebase/util';
 
 export const MedicalReportShow = () => {
     const [readOnly, switchButton] = useState<Boolean>(true);
     const {medicalReport, setMedicalReport} = useContext(ShowUniqueReportContext);
-    const {originalDate, originalThermometer, originalHeartRate, originalBreathingRate, originalOxygenRate, originalMinPressure, originalMaxPressure, originalCalorie, originalWeight, originalMemo} = medicalReport;
+    // const {originalDate, originalThermometer, originalHeartRate, originalBreathingRate, originalOxygenRate, originalMinPressure, originalMaxPressure, originalCalorie, originalWeight, originalMemo} = medicalReport;
+    const originalDate = medicalReport.date;
+    const originalThermometer = medicalReport.thermometer;
+    const originalHeartRate = medicalReport.heartRate;
+    const originalBreathingRate = medicalReport.breathingRate;
+    const originalOxygenRate = medicalReport.oxygenRate;
+    const originalMinPressure = medicalReport.minPressure;
+    const originalMaxPressure = medicalReport.maxPressure;
+    const originalCalorie = medicalReport.calorie;
+    const originalWeight = medicalReport.weight;
+    const originalMemo = medicalReport.memo;
 
     const [date, setDate] = useState<Date | null>(originalDate);
     const [thermometer, setThermometer] = useState<number>(originalThermometer);
@@ -56,8 +70,8 @@ export const MedicalReportShow = () => {
         margin: "16px",
         padding: "16px",
     }
-    const updateMedicalReport = () =>{
-        const medicalReport: MedicalReportType = {
+    const updateMedicalReport = async () =>{
+        const preMedicalReport: MedicalReportType = {
             date: date,
             thermometer: thermometer,
             heartRate: heartRate,
@@ -69,9 +83,22 @@ export const MedicalReportShow = () => {
             weight: weight,
             memo: ''
         }
-        console.log(medicalReport);
-        alert(`更新されました`)
-        switchButton(true);
+        // console.log(medicalReport);
+        try{
+            const db = dbConnect();
+            // const medicalReportRef = doc(collection(db, 'medical-report'));
+            console.log('medicalReport');
+            console.log(medicalReport);
+            const medicalReportRef = doc(db, 'medical-report', originalDate);
+            // await setDoc(medicalReportRef, medicalReport);
+            console.log('medicalReportRef');
+            console.log(medicalReportRef);
+            await updateDoc(medicalReportRef, preMedicalReport);
+            alert(`更新されました`);
+            switchButton(true);    
+        }catch(err:unknown){
+            alert(`データベースへの接続に失敗し、更新できませんでした。`);
+        }
     }
     return(
         <>
@@ -86,9 +113,10 @@ export const MedicalReportShow = () => {
                     <Grid item xs={4}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
+                            disabled={readOnly}
                             renderInput={(props) => <TextField {...props} />}
                             label="診察日"
-                            value={originalDate}
+                            value={date}
                             onChange={(newValue) => {
                                 setDate(newValue);
                             }}
@@ -104,7 +132,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="体温(BT)"
-                            value={originalThermometer}
+                            value={thermometer}
                             onChange={onChangeVT}
                             InputLabelProps={{
                                 shrink: true,
@@ -117,7 +145,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="脈拍(HR)"
-                            value={originalHeartRate}
+                            value={heartRate}
                             onChange={onChangeHR}
                             InputLabelProps={{
                                 shrink: true,
@@ -133,7 +161,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="呼吸数(RR)"
-                            value={originalBreathingRate}
+                            value={breathingRate}
                             onChange={onChangeRR}
                             InputLabelProps={{
                                 shrink: true,
@@ -146,7 +174,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="血中酸素濃度(SpO2)"
-                            value={originalOxygenRate}
+                            value={oxygenRate}
                             onChange={onChangeSpO2}
                             InputLabelProps={{
                                 shrink: true,
@@ -162,7 +190,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="最低血圧(BP)"
-                            value={originalMinPressure}
+                            value={minPressure}
                             onChange={onChangeBPMin}
                             InputLabelProps={{
                                 shrink: true,
@@ -175,7 +203,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="最高血圧(BP)"
-                            value={originalMaxPressure}
+                            value={maxPressure}
                             onChange={onChangeBPMax}
                             InputLabelProps={{
                                 shrink: true,
@@ -191,7 +219,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="摂取カロリー(kcal)"
-                            value={originalCalorie}
+                            value={calorie}
                             onChange={onChangeKcal}
                             InputLabelProps={{
                                 shrink: true,
@@ -204,7 +232,7 @@ export const MedicalReportShow = () => {
                             id="outlined-required"
                             type='number'
                             label="体重(kg)"
-                            value={originalWeight}
+                            value={weight}
                             onChange={onChangeKg}
                             InputLabelProps={{
                                 shrink: true,

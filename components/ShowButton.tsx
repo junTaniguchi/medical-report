@@ -4,24 +4,29 @@ import IconButton from '@mui/material/IconButton';
 import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
 import { MedicalReportType } from '../type/medicalReportType';
 import { OpenShowStatusContext, ShowUniqueReportContext } from '../context/SelectIndexContext'
-export const ShowButton = ({rowId}) => {
+export const ShowButton = (props) => {
+    console.log('ShowButton');
+    console.log(props);
     const { medicalReport, setMedicalReport} = useContext(ShowUniqueReportContext);
     const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
     const getMedicalReport = () =>{
         // デバッグ用
-        const sampleData: MedicalReportType = {
-            date: new Date(),
-            thermometer: 0,
-            heartRate: 0,
-            breathingRate: 0,
-            oxygenRate: 0,
-            minPressure: 0,
-            maxPressure: 0,
-            calorie: 0,
-            weight: 0,
-            memo: ''
+        const targetMedicalreport: MedicalReportType = {
+            date: props.params.row.date,
+            thermometer: props.params.row.thermometer,
+            heartRate: props.params.row.heartRate,
+            breathingRate: props.params.row.breathingRate,
+            oxygenRate: props.params.row.oxygenRate,
+            minPressure: props.params.row.minPressure,
+            maxPressure: props.params.row.maxPressure,
+            calorie: props.params.row.calorie,
+            weight: props.params.row.weight,
+            memo: props.params.row.memo
         }
-        setMedicalReport(sampleData);
+        setMedicalReport(targetMedicalreport);
+        console.log('targetMedicalreport');
+        console.log(targetMedicalreport);
+        
         changeShowPageStatus(true);
 
     }

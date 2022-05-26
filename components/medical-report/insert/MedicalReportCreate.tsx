@@ -5,25 +5,43 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {format} from 'date-fns/format';
+import { dbConnect } from "../../firebase/firestoreConnect";
+import { async } from '@firebase/util';
 
 export const MedicalReportCreate = (props:MedicalReportType) => {
     const {date, thermometer, heartRate, breathingRate, oxygenRate, minPressure, maxPressure, calorie, weight, memo} = props.medicalReport;
-    console.log(`date is ${date}`);
-    console.log(`thermometer is ${thermometer}`);
-    console.log(`heartRate is ${heartRate}`);
-    console.log(`breathingRate is ${breathingRate}`);
-    console.log(`oxygenRate is ${oxygenRate}`);
-    console.log(`minPressure is ${minPressure}`);
-    console.log(`maxPressure, is ${maxPressure}`);
-    console.log(`calorie, is ${calorie}`);
-    console.log(`weight, is ${weight}`);
     const paperStyle = {
         wigth: "90%",
         margin: "16px",
         padding: "16px",
     }
-    const MedicalReportCreateCall = () => {
+    const MedicalReportCreateCall = async () => {
         console.log(props.medicalReport);
+        try{
+            const db = dbConnect();
+            const medicalReportRef = collection(db, 'medical-report');
+            const addMedicalReport : MedicalReportType = {
+                date : Timestamp.fromDate(date),
+                // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
+                thermometer : thermometer,
+                heartRate : heartRate,
+                breathingRate : breathingRate,
+                oxygenRate : oxygenRate,
+                minPressure : minPressure,
+                maxPressure : maxPressure,
+                calorie : calorie,
+                weight : weight,
+                memo : memo
+            }
+            console.log('addMedicalReport');
+            console.log(addMedicalReport);
+            await addDoc(medicalReportRef, addMedicalReport);
+            alert(`データベースに登録されました。`);
+        }catch(err:unknown){
+            alert(`データベースにアクセス出来ませんでした。`);
+        }
     }
     return(
         <>
