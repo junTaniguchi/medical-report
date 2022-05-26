@@ -11,9 +11,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { doc, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
-// import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
-
+import { parse } from 'date-fns';
 
 export const MedicalReportShow = () => {
     const [readOnly, switchButton] = useState<boolean>(true);
@@ -30,7 +29,7 @@ export const MedicalReportShow = () => {
     const originalWeight = showMedicalReport.weight;
     const originalMemo = showMedicalReport.memo;
 
-    const [date, setDate] = useState<any>(originalDate);
+    const [date, setDate] = useState<any>(parse(originalDate, 'yyyy/MM/dd HH:mm', new Date()));
     const [thermometer, setThermometer] = useState<number>(originalThermometer);
     const [heartRate, setHeartRate] = useState<number>(originalHeartRate);
     const [breathingRate, setBreathingRate] = useState<number>(originalBreathingRate);

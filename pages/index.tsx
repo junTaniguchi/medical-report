@@ -5,6 +5,7 @@ import { Sidebar } from '../components/Sidebar'
 import { SelectIndexProvider } from '../context/SelectIndexContext'
 import { MedicalReportInsertIndex } from '../components/medical-report/insert/MedicalReportInsertIndex'
 import { MedicalReportSelectIndex } from '../components/medical-report/select/MedicalReportSelectIndex'
+import { ChartIndex } from '../components/chart/ChartIndex'
 // import { Contents } from './Contents'
 import Grid from '@mui/material/Grid';
 
@@ -23,6 +24,8 @@ const Home: NextPage = () => {
             <MedicalReportSelectIndex />
           </SelectIndexProvider>
         )
+      case 3:
+        return <ChartIndex />
       default:
         return null; 
     }

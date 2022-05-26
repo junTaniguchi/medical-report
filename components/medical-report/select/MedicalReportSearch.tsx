@@ -11,7 +11,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MedicalReportSearchList } from './MedicalReportSearchList';
 import { collection, query, getDocs, orderBy, startAt, endAt, Timestamp } from "firebase/firestore";
-// import {format} from 'date-fns/format';
+import {format} from 'date-fns';
 import { dbConnect } from "../../firebase/firestoreConnect";
 
 export const MedicalReportSearch = () => {
@@ -37,8 +37,7 @@ export const MedicalReportSearch = () => {
                 const doc = document.data()
                 const searchMedicalReport : SearchedMedicalReportType = {
                     id : document.id,
-                    date : doc.date.toDate(),
-                    // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
+                    date : format(doc.date.toDate(), 'yyyy/MM/dd HH:mm'),
                     thermometer : doc.thermometer,
                     heartRate : doc.heartRate,
                     breathingRate : doc.breathingRate,
@@ -107,6 +106,6 @@ export const MedicalReportSearch = () => {
                 null
             }
             </Paper>
-        </Fragment>        
+        </Fragment>
     )
 }
