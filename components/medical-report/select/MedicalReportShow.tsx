@@ -1,6 +1,6 @@
 //MedicalReportShow.tsx
 import { useContext, useState, ChangeEvent, Fragment } from 'react';
-import { ShowUniqueReportContext } from '../../../context/SelectIndexContext'
+import { OpenShowStatusContext, ShowUniqueReportContext } from '../../../context/SelectIndexContext'
 import type { MedicalReportType } from '../../../type/medicalReportType';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { collection, doc, setDocs, updateDoc, Timestamp, setDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, Timestamp, setDoc } from "firebase/firestore";
 import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
 import { async } from '@firebase/util';
@@ -18,6 +18,7 @@ import { async } from '@firebase/util';
 export const MedicalReportShow = () => {
     const [readOnly, switchButton] = useState<Boolean>(true);
     const {showMedicalReport, setShowMedicalReport} = useContext(ShowUniqueReportContext);
+    const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
     console.log('showMedicalReport');
     console.log(showMedicalReport);
     const originalDate = showMedicalReport.date;
@@ -72,7 +73,7 @@ export const MedicalReportShow = () => {
         padding: "16px",
     }
     const updateMedicalReport = async () =>{
-        const preMedicalReport: MedicalReportType = {
+        const targetMedicalReport: MedicalReportType = {
             date: date,
             thermometer: thermometer,
             heartRate: heartRate,
@@ -87,16 +88,21 @@ export const MedicalReportShow = () => {
         // console.log(medicalReport);
         try{
             const db = dbConnect();
-            // const medicalReportRef = doc(collection(db, 'medical-report'));
-            console.log('showMedicalReport');
-            console.log(showMedicalReport);
             const medicalReportRef = doc(db, 'medical-report', showMedicalReport.id);
-            // await setDoc(medicalReportRef, medicalReport);
-            console.log('medicalReportRef');
-            console.log(medicalReportRef);
-            await updateDoc(medicalReportRef, preMedicalReport);
+            await updateDoc(medicalReportRef, targetMedicalReport);
             alert(`更新されました`);
             switchButton(true);    
+        }catch(err:unknown){
+            alert(`データベースへの接続に失敗し、更新できませんでした。`);
+        }
+    }
+    const deleteMedicalReport = async () => {
+        try{
+            const db = dbConnect();
+            const medicalReportRef = doc(db, 'medical-report', showMedicalReport.id);
+            await deleteDoc(medicalReportRef);
+            alert(`削除されました`);
+            changeShowPageStatus(false);
         }catch(err:unknown){
             alert(`データベースへの接続に失敗し、更新できませんでした。`);
         }
@@ -249,11 +255,18 @@ export const MedicalReportShow = () => {
                     <Grid item xs={4}>
                     </Grid>
                     <Grid item xs={4}>
-                        {readOnly? 
-                            <Button variant="contained"
-                                    endIcon={<SendIcon />}
-                                    onClick={()=>(switchButton(false))}
-                            > 修正 </Button> : 
+                        {readOnly?
+                            <Fragment>
+                                <Button variant="contained"
+                                        endIcon={<SendIcon />}
+                                        onClick={()=>(switchButton(false))}
+                                > 修正 </Button> 
+                                <Button variant="contained"
+                                        endIcon={<SendIcon />}
+                                        onClick={deleteMedicalReport}
+                                > 削除 </Button> 
+                            </Fragment>
+                        : 
                             <Fragment>
                                 <Button variant="contained"
                                         endIcon={<SendIcon />}

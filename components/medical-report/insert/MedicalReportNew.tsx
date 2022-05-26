@@ -29,9 +29,6 @@ export const MedicalReportNew = (props:any) => {
     const [calorie, setCalorie] = useState<number>(0.0);
     const [weight, setWeight] = useState<number>(0.0);
 
-    // const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setThermometer(new Date(e.target.value));
-    // }
     const onChangeVT = (e: ChangeEvent<HTMLInputElement>) => {
         setThermometer(parseFloat(e.target.value));
     }
@@ -71,8 +68,7 @@ export const MedicalReportNew = (props:any) => {
         }
         console.log(medicalReport);
         props.setMedicalReport(medicalReport);
-        props.setIsWritten(true);
-        console.log(`MedicalReportNew :${props}`);      
+        props.setIsWritten(true);    
 
     }
     return(

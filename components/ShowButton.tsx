@@ -5,8 +5,6 @@ import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutl
 import { SearchedMedicalReportType } from '../type/searchedMedicalReportType';
 import { OpenShowStatusContext, ShowUniqueReportContext } from '../context/SelectIndexContext'
 export const ShowButton = (props) => {
-    console.log('ShowButton');
-    console.log(props);
     const { showMedicalReport, setShowMedicalReport } = useContext(ShowUniqueReportContext);
     const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
     const getMedicalReport = () =>{

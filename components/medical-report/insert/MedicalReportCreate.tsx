@@ -48,12 +48,10 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
             <Paper elevation={3} style={paperStyle}>
                 <Grid container spacing={2}>
                     {/* 1段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         電子カルテ
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -66,9 +64,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                         />
                     </Grid>
                     {/* 2段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -80,7 +76,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -93,9 +89,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                         />
                     </Grid>
                     {/* 3段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -107,7 +101,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -120,9 +114,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                         />
                     </Grid>
                     {/* 4段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -134,7 +126,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -147,9 +139,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                         />
                     </Grid>
                     {/* 5段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -161,7 +151,7 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled
                             id="outlined-disabled"
@@ -174,13 +164,6 @@ export const MedicalReportCreate = (props:MedicalReportType) => {
                         />
                     </Grid>
                     {/* 6段目 */}
-                    <Grid item xs={12}>
-                    </Grid>
-                    {/* 7段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
                     <Grid item xs={4}>
                         <Button variant="contained" onClick={MedicalReportCreateCall} endIcon={<SendIcon />}>
                             登録
