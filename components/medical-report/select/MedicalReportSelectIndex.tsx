@@ -1,4 +1,4 @@
-import { useContext, useState, Fragment } from 'react'
+import { useContext, Fragment } from 'react'
 import { OpenShowStatusContext } from '../../../context/SelectIndexContext';
 import { MedicalReportSearch } from './MedicalReportSearch'
 import { MedicalReportShow } from './MedicalReportShow';

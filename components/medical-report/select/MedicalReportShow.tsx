@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { doc, updateDoc, deleteDoc, Timestamp, setDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
 // import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
 import { async } from '@firebase/util';

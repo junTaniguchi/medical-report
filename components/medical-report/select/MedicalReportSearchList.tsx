@@ -1,9 +1,9 @@
-import { ChangeEvent, useState, useEffect, Fragment } from 'react';
-import { DataGrid, GridColDef, GridToolbar, jaJP } from '@mui/x-data-grid';
+import { Fragment } from 'react';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { ShowButton } from '../../ShowButton';
 import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
 
-export const MedicalReportSearchList = (props:SearchedMedicalReportType[]) => {
+export const MedicalReportSearchList = (props:any) => {
     const searchedMedicalReports:SearchedMedicalReportType[] = props.searchedMedicalReports;
     // date: Date | null;
     // thermometer: number;

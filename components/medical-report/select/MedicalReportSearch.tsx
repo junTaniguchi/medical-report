@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, Fragment } from 'react';
+import { useContext, useState, Fragment } from 'react';
 import {OpenListStatusContext} from '../../../context/SelectIndexContext'
 import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
 import Paper from '@mui/material/Paper';
@@ -10,8 +10,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MedicalReportSearchList } from './MedicalReportSearchList';
-import { collection, query, where, getDocs, orderBy, startAt, endAt, Timestamp } from "firebase/firestore";
-import {format} from 'date-fns/format';
+import { collection, query, getDocs, orderBy, startAt, endAt, Timestamp } from "firebase/firestore";
+// import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
 import { async } from '@firebase/util';
 
@@ -23,8 +23,8 @@ export const MedicalReportSearch = () => {
     }
     const {searchListStatus, changeSearchListStatus} = useContext(OpenListStatusContext);
     console.log(`searchListStatus: ${searchListStatus}`);
-    const [minDate, setMinDate] = useState<Date>(new Date());
-    const [maxDate, setMaxDate] = useState<Date>(new Date());
+    const [minDate, setMinDate] = useState<any>(new Date());
+    const [maxDate, setMaxDate] = useState<any>(new Date());
     // const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
 
     const [searchedMedicalReports, setSearchedMedicalReports] = useState<SearchedMedicalReportType[]>([]);
