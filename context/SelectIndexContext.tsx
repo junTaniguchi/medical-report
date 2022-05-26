@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { SearchedMedicalReportType } from "../type/searchedMedicalReportType";
+import {format} from 'date-fns';
 
 export const OpenListStatusContext = createContext({} as {
     searchListStatus: boolean
@@ -20,8 +21,7 @@ export const SelectIndexProvider = (props:any) =>{
     const [showPageStatus, changeShowPageStatus] = useState<boolean>(false);
     const [showMedicalReport, setShowMedicalReport] = useState<SearchedMedicalReportType>({
         id : "0",
-        date : new Date(),
-        // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
+        date : format(new Date(),'yyyy/MM/dd HH:mm'),
         thermometer : 0,
         heartRate : 0,
         breathingRate : 0,
