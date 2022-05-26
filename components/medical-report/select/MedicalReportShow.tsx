@@ -111,13 +111,16 @@ export const MedicalReportShow = () => {
         <>
             <Paper elevation={3} style={paperStyle}>
                 <Grid container spacing={2}>
-                    {/* 1段目 */}
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
+                        <h2>電子カルテ詳細</h2>
+                        {readOnly?
+                            <p>過去の診断記録をご確認ください。</p>
+                        :
+                            <p>修正が完了次第、更新ボタンを押下してください。</p>    
+                        }                    
                     </Grid>
-                    <Grid item xs={4}>
-                        電子カルテ
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
+                        <br></br><br></br><br></br><br></br>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             disabled={readOnly}
@@ -131,9 +134,7 @@ export const MedicalReportShow = () => {
                         </LocalizationProvider>
                     </Grid>
                     {/* 2段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -146,7 +147,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -159,10 +160,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    {/* 3段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -175,7 +173,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -188,10 +186,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    {/* 4段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -204,7 +199,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -217,10 +212,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    {/* 5段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -233,7 +225,7 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TextField
                             disabled={readOnly}
                             id="outlined-required"
@@ -246,21 +238,24 @@ export const MedicalReportShow = () => {
                             }}
                         />
                     </Grid>
-                    {/* 6段目 */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
+                        {readOnly?
+                            <Button variant="contained"
+                                endIcon={<SendIcon />}
+                                onClick={()=>(changeShowPageStatus(false))}
+                            > 一覧画面へ戻る </Button> 
+                        :
+                            null
+                        }
                     </Grid>
-                    {/* 7段目 */}
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         {readOnly?
                             <Fragment>
                                 <Button variant="contained"
                                         endIcon={<SendIcon />}
                                         onClick={()=>(switchButton(false))}
                                 > 修正 </Button> 
+                                <p></p>
                                 <Button variant="contained"
                                         endIcon={<SendIcon />}
                                         onClick={deleteMedicalReport}
@@ -276,12 +271,9 @@ export const MedicalReportShow = () => {
                                 <Button variant="contained"
                                         endIcon={<SendIcon />}
                                         onClick={updateMedicalReport}
-                                > 修正決定 </Button>
+                                > 更新 </Button>
                             </Fragment>
                         }
-                    </Grid>
-                    {/* 6段目 */}
-                    <Grid item xs={12}>
                     </Grid>
                 </Grid>
             </Paper>

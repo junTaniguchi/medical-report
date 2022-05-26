@@ -1,8 +1,9 @@
-// import { type } from "os";
+import { Timestamp } from "firebase/firestore";
+
 
 // MedicalReportType.tsx
 export type MedicalReportType = {
-    date: Date | null;             // 日付
+    date: Timestamp;             // 日付
     thermometer: number;    // 体温
     heartRate: number;     // 脈拍
     breathingRate: number; // 呼吸数

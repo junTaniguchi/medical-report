@@ -1,25 +1,28 @@
 // MedicalReportCreate.tsx
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, Fragment } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import type { MedicalReportType } from '../../../type/medicalReportType';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
+import { dbConnect } from "../../firebase/firestoreConnect";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 export const MedicalReportNew = (props:any) => {
+    const [readOnly, switchButton] = useState<Boolean>(false);
     const paperStyle = {
         wigth: "90%",
         margin: "16px",
         padding: "16px",
     }
     
-    const [date, setDate] = useState<Date | null>(new Date());
+    const [date, setDate] = useState<Date>(new Date());
     const [thermometer, setThermometer] = useState<number>(0.0);
     const [heartRate, setHeartRate] = useState<number>(0.0);
     const [breathingRate, setBreathingRate] = useState<number>(0.0);
@@ -53,35 +56,49 @@ export const MedicalReportNew = (props:any) => {
     const onChangeKg = (e: ChangeEvent<HTMLInputElement>) => {
         setWeight(parseFloat(e.target.value));
     }
-    const createMedicalReport = () => {
-        const medicalReport: MedicalReportType = {
-            date: date,
-            thermometer: thermometer,
-            heartRate: heartRate,
-            breathingRate: breathingRate,
-            oxygenRate: oxygenRate,
-            minPressure: minPressure,
-            maxPressure: maxPressure,
-            calorie: calorie,
-            weight: weight,
-            memo: ''
+    const createMedicalReport = async () => {
+        try{
+            const db = dbConnect();
+            const medicalReportRef = collection(db, 'medical-report');
+            const addMedicalReport : MedicalReportType = {
+                date : Timestamp.fromDate(date),
+                // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
+                thermometer : thermometer,
+                heartRate : heartRate,
+                breathingRate : breathingRate,
+                oxygenRate : oxygenRate,
+                minPressure : minPressure,
+                maxPressure : maxPressure,
+                calorie : calorie,
+                weight : weight,
+                memo : ""
+            }
+            console.log('addMedicalReport');
+            console.log(addMedicalReport);
+            await addDoc(medicalReportRef, addMedicalReport);
+            alert(`データベースに登録されました。`);
+        }catch(err:unknown){
+            alert(`データベースにアクセス出来ませんでした。`);
         }
-        console.log(medicalReport);
-        props.setMedicalReport(medicalReport);
-        props.setIsWritten(true);    
-
     }
     return(
-        <>
+        <Fragment>
             <Paper elevation={3} style={paperStyle}>
                 <Grid container spacing={2}>
                     {/* 1段目 */}
                     <Grid item xs={6}>
-                        電子カルテ
+                        <h2>新規電子カルテ起票</h2>
+                        {readOnly? 
+                            <p>記載した内容に問題がなければ、登録を押下してください</p>
+                        :
+                            <p>下にある項目を全て計測して記載してください。</p>
+                        }
                     </Grid>
                     <Grid item xs={6}>
+                        <br></br><br></br><br></br><br></br>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
+                            disabled={readOnly}
                             renderInput={(props) => <TextField {...props} />}
                             label="診察日"
                             value={date}
@@ -94,7 +111,7 @@ export const MedicalReportNew = (props:any) => {
                     {/* 2段目 */}
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="体温(BT)"
@@ -106,7 +123,7 @@ export const MedicalReportNew = (props:any) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="脈拍(HR)"
@@ -119,7 +136,7 @@ export const MedicalReportNew = (props:any) => {
                     {/* 3段目 */}
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="呼吸数(RR)"
@@ -131,7 +148,7 @@ export const MedicalReportNew = (props:any) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="血中酸素濃度(SpO2)"
@@ -144,7 +161,7 @@ export const MedicalReportNew = (props:any) => {
                     {/* 4段目 */}
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="最低血圧(BP)"
@@ -156,7 +173,7 @@ export const MedicalReportNew = (props:any) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="最高血圧(BP)"
@@ -169,7 +186,7 @@ export const MedicalReportNew = (props:any) => {
                     {/* 5段目 */}
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="摂取カロリー(kcal)"
@@ -181,7 +198,7 @@ export const MedicalReportNew = (props:any) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            required
+                            disabled={readOnly}
                             id="outlined-required"
                             type='number'
                             label="体重(kg)"
@@ -191,22 +208,30 @@ export const MedicalReportNew = (props:any) => {
                             }}
                         />
                     </Grid>
-                    {/* 6段目 */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                     </Grid>
-                    {/* 7段目 */}
-                    <Grid item xs={8}>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button variant="contained" endIcon={<SendIcon />} onClick={createMedicalReport} >
-                            起票
-                        </Button>
-                    </Grid>
-                    {/* 6段目 */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
+                        {readOnly?
+                            <Fragment>
+                                <Button variant="contained" endIcon={<SendIcon />} onClick={createMedicalReport} >
+                                    登録
+                                </Button>
+                                <p></p>
+                                <Button variant="contained" endIcon={<SendIcon />} onClick={()=>(switchButton(false))} >
+                                    取り止め
+                                </Button>
+                            </Fragment>
+                        :
+                            <Fragment>
+                                <Button variant="contained" endIcon={<SendIcon />} onClick={()=>(switchButton(true))} >
+                                    起票
+                                </Button>  
+                            </Fragment>
+                        }
+                        
                     </Grid>
                 </Grid>
             </Paper>
-        </>
+        </Fragment>
     )
 }

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, Fragment } from 'react';
 import {OpenListStatusContext} from '../../../context/SelectIndexContext'
 import type { SearchedMedicalReportType } from '../../../type/searchedMedicalReportType';
+import Paper from '@mui/material/Paper';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -15,7 +16,11 @@ import { dbConnect } from "../../firebase/firestoreConnect";
 import { async } from '@firebase/util';
 
 export const MedicalReportSearch = () => {
-
+    const paperStyle = {
+        wigth: "90%",
+        margin: "16px",
+        padding: "16px",
+    }
     const {searchListStatus, changeSearchListStatus} = useContext(OpenListStatusContext);
     console.log(`searchListStatus: ${searchListStatus}`);
     const [minDate, setMinDate] = useState<Date>(new Date());
@@ -60,13 +65,13 @@ export const MedicalReportSearch = () => {
 
     return(
         <Fragment>
+            <Paper elevation={3} style={paperStyle}>
             <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <Button variant="contained" endIcon={<SendIcon />} onClick={searchMedicalReport} >
-                        検索
-                    </Button>
-                </Grid>
                 <Grid item xs={12}>
+                    <h2>過去の診断記録検索</h2>
+                    <p>下のテキストボックスの記録を記入し、範囲内の期間のカルテを検索できます。</p>
+                </Grid>
+                <Grid item xs={3}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -76,8 +81,12 @@ export const MedicalReportSearch = () => {
                                 setMinDate(newValue);
                             }}
                         />
-                        〜
                     </LocalizationProvider>
+                </Grid>
+                <Grid item xs={1}>
+                    <p style={{textAlign: "center"}}>〜</p>
+                </Grid>
+                <Grid item xs={3}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -89,8 +98,19 @@ export const MedicalReportSearch = () => {
                         />
                     </LocalizationProvider>
                 </Grid>
+                <Grid item xs={2}>
+                    <Button variant="contained" endIcon={<SendIcon />} onClick={searchMedicalReport} >
+                        検索
+                    </Button>
+                </Grid>
             </Grid>
-            {searchListStatus? <MedicalReportSearchList searchedMedicalReports={searchedMedicalReports}/> : null}
-        </Fragment>
+            <br></br>
+            {searchListStatus? 
+                <MedicalReportSearchList searchedMedicalReports={searchedMedicalReports}/> 
+            :
+                null
+            }
+            </Paper>
+        </Fragment>        
     )
 }

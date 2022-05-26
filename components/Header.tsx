@@ -2,7 +2,7 @@
 export const Header = () => {
     return (
         <>
-            <p>電子カルテ</p>
+            <h1><p>谷口製電子カルテ</p></h1>
         </>
     )
 }
