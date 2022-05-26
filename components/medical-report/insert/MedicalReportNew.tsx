@@ -77,8 +77,6 @@ export const MedicalReportNew = (props:any) => {
                 weight : weight,
                 memo : memo
             }
-            console.log('addMedicalReport');
-            console.log(addMedicalReport);
             await addDoc(medicalReportRef, addMedicalReport);
             alert(`データベースに登録されました。`);
         }catch(err:unknown){

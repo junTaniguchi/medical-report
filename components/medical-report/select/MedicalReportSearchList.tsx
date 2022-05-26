@@ -5,20 +5,9 @@ import type { SearchedMedicalReportType } from '../../../type/searchedMedicalRep
 
 export const MedicalReportSearchList = (props:any) => {
     const searchedMedicalReports:SearchedMedicalReportType[] = props.searchedMedicalReports;
-    // date: Date | null;
-    // thermometer: number;
-    // heartRate: number;
-    // breathingRate: number;
-    // oxygenRate: number;
-    // minPressure: number;
-    // maxPressure: number;
-    // calorie: number;
-    // weight: number;
-    // memo: string;
     const columns: GridColDef[] = [
         {
             field: 'show', headerName: '詳細', width: 40, sortable: false,
-            // renderCell: (params) => <ShowButton rowId={ params.id } />
             renderCell: (params) => <ShowButton params={ params } />
         },
         { field: 'id', headerName: 'ID', width: 70 },

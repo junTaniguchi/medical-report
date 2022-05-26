@@ -13,7 +13,6 @@ import { MedicalReportSearchList } from './MedicalReportSearchList';
 import { collection, query, getDocs, orderBy, startAt, endAt, Timestamp } from "firebase/firestore";
 // import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
-import { async } from '@firebase/util';
 
 export const MedicalReportSearch = () => {
     const paperStyle = {
@@ -25,7 +24,6 @@ export const MedicalReportSearch = () => {
     console.log(`searchListStatus: ${searchListStatus}`);
     const [minDate, setMinDate] = useState<any>(new Date());
     const [maxDate, setMaxDate] = useState<any>(new Date());
-    // const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
 
     const [searchedMedicalReports, setSearchedMedicalReports] = useState<SearchedMedicalReportType[]>([]);
     const searchMedicalReport = async () => {
@@ -36,24 +34,22 @@ export const MedicalReportSearch = () => {
             const execQuery = query(medicalReportRef, orderBy("date"), startAt(Timestamp.fromDate(minDate)), endAt(Timestamp.fromDate(maxDate)));
             const snapshot = getDocs(execQuery);
             const resultMedicalReport = (await snapshot).docs.map((document:any)=>{
-                    const doc = document.data()
-                    const searchMedicalReport : SearchedMedicalReportType = {
-                        id : document.id,
-                        date : doc.date.toDate(),
-                        // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
-                        thermometer : doc.thermometer,
-                        heartRate : doc.heartRate,
-                        breathingRate : doc.breathingRate,
-                        oxygenRate : doc.oxygenRate,
-                        minPressure : doc.minPressure,
-                        maxPressure : doc.maxPressure,
-                        calorie : doc.calorie,
-                        weight : doc.weight,
-                        memo : doc.memo
-                    }
-                    console.log(doc.date.toDate());
-                    searchMedicalReports.push(searchMedicalReport);
-
+                const doc = document.data()
+                const searchMedicalReport : SearchedMedicalReportType = {
+                    id : document.id,
+                    date : doc.date.toDate(),
+                    // date : format(doc.date.toDate(),'YYYY-MM-DD HH:mm:ss'),
+                    thermometer : doc.thermometer,
+                    heartRate : doc.heartRate,
+                    breathingRate : doc.breathingRate,
+                    oxygenRate : doc.oxygenRate,
+                    minPressure : doc.minPressure,
+                    maxPressure : doc.maxPressure,
+                    calorie : doc.calorie,
+                    weight : doc.weight,
+                    memo : doc.memo
+                }
+                searchMedicalReports.push(searchMedicalReport);
             })
             
             setSearchedMedicalReports(searchMedicalReports);

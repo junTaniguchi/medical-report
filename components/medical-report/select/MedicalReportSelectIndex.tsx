@@ -5,7 +5,6 @@ import { MedicalReportShow } from './MedicalReportShow';
 
 export const MedicalReportSelectIndex = () => {
     const {showPageStatus, changeShowPageStatus} = useContext(OpenShowStatusContext);
-    console.log(`showPageStatus: ${showPageStatus}`);
     return(
         <Fragment>
             {showPageStatus? <MedicalReportShow /> : <MedicalReportSearch /> }

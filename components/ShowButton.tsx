@@ -22,10 +22,7 @@ export const ShowButton = (props:any) => {
             weight: props.params.row.weight,
             memo: props.params.row.memo
         }
-        setShowMedicalReport(targetMedicalreport);
-        console.log('targetMedicalreport');
-        console.log(targetMedicalreport);
-        
+        setShowMedicalReport(targetMedicalreport);        
         changeShowPageStatus(true);
 
     }

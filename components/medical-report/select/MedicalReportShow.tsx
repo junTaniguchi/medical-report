@@ -13,14 +13,12 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { doc, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
 // import {format} from 'date-fns/format';
 import { dbConnect } from "../../firebase/firestoreConnect";
-import { async } from '@firebase/util';
+
 
 export const MedicalReportShow = () => {
     const [readOnly, switchButton] = useState<boolean>(true);
     const {showMedicalReport, setShowMedicalReport} = useContext(ShowUniqueReportContext);
     const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
-    console.log('showMedicalReport');
-    console.log(showMedicalReport);
     const originalDate = showMedicalReport.date;
     const originalThermometer = showMedicalReport.thermometer;
     const originalHeartRate = showMedicalReport.heartRate;
@@ -87,7 +85,7 @@ export const MedicalReportShow = () => {
             maxPressure: maxPressure,
             calorie: calorie,
             weight: weight,
-            memo: ''
+            memo: memo
         }
         // console.log(medicalReport);
         try{
