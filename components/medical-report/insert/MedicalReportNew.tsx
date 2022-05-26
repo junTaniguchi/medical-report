@@ -22,7 +22,7 @@ export const MedicalReportNew = (props:any) => {
         padding: "16px",
     }
     
-    const [date, setDate] = useState<Date | null>(new Date());
+    const [date, setDate] = useState<any>(new Date());
     const [thermometer, setThermometer] = useState<number>(0.0);
     const [heartRate, setHeartRate] = useState<number>(0.0);
     const [breathingRate, setBreathingRate] = useState<number>(0.0);
