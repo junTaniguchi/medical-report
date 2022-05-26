@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { MedicalReportType } from "../type/medicalReportType";
+import { SearchedMedicalReportType } from "../type/searchedMedicalReportType";
 
 export const OpenListStatusContext = createContext({});
 export const OpenShowStatusContext = createContext({});
@@ -9,12 +9,12 @@ export const SelectIndexProvider = (props:any) =>{
     
     const [searchListStatus, changeSearchListStatus] = useState<boolean>(false);
     const [showPageStatus, changeShowPageStatus] = useState<boolean>(false);
-    const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
+    const [showMedicalReport, setShowMedicalReport] = useState<SearchedMedicalReportType>();
 
     return(
         <OpenListStatusContext.Provider value={{searchListStatus, changeSearchListStatus}}>
             <OpenShowStatusContext.Provider value={{showPageStatus, changeShowPageStatus}}>
-                <ShowUniqueReportContext.Provider value={{medicalReport, setMedicalReport}}>
+                <ShowUniqueReportContext.Provider value={{showMedicalReport, setShowMedicalReport}}>
                     {children}
                 </ShowUniqueReportContext.Provider>
             </OpenShowStatusContext.Provider>

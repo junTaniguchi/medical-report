@@ -23,11 +23,6 @@ export const MedicalReportSearch = () => {
     // const [medicalReport, setMedicalReport] = useState<MedicalReportType>();
 
     const [searchedMedicalReports, setSearchedMedicalReports] = useState<SearchedMedicalReportType[]>([]);
-
-    useEffect(()=>{
-        
-    })
-
     const searchMedicalReport = async () => {
         const searchMedicalReports : SearchedMedicalReportType[] = [];
         try{

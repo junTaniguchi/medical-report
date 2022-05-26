@@ -2,16 +2,17 @@ import { useContext, Fragment } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
-import { MedicalReportType } from '../type/medicalReportType';
+import { SearchedMedicalReportType } from '../type/searchedMedicalReportType';
 import { OpenShowStatusContext, ShowUniqueReportContext } from '../context/SelectIndexContext'
 export const ShowButton = (props) => {
     console.log('ShowButton');
     console.log(props);
-    const { medicalReport, setMedicalReport} = useContext(ShowUniqueReportContext);
+    const { showMedicalReport, setShowMedicalReport } = useContext(ShowUniqueReportContext);
     const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
     const getMedicalReport = () =>{
         // デバッグ用
-        const targetMedicalreport: MedicalReportType = {
+        const targetMedicalreport: SearchedMedicalReportType = {
+            id: props.params.id,
             date: props.params.row.date,
             thermometer: props.params.row.thermometer,
             heartRate: props.params.row.heartRate,
@@ -23,7 +24,7 @@ export const ShowButton = (props) => {
             weight: props.params.row.weight,
             memo: props.params.row.memo
         }
-        setMedicalReport(targetMedicalreport);
+        setShowMedicalReport(targetMedicalreport);
         console.log('targetMedicalreport');
         console.log(targetMedicalreport);
         

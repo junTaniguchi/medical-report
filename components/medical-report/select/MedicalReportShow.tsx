@@ -1,5 +1,5 @@
 //MedicalReportShow.tsx
-import { useContext, useState, ChangeEvent } from 'react';
+import { useContext, useState, ChangeEvent, Fragment } from 'react';
 import { ShowUniqueReportContext } from '../../../context/SelectIndexContext'
 import type { MedicalReportType } from '../../../type/medicalReportType';
 import Paper from '@mui/material/Paper';
@@ -17,18 +17,19 @@ import { async } from '@firebase/util';
 
 export const MedicalReportShow = () => {
     const [readOnly, switchButton] = useState<Boolean>(true);
-    const {medicalReport, setMedicalReport} = useContext(ShowUniqueReportContext);
-    // const {originalDate, originalThermometer, originalHeartRate, originalBreathingRate, originalOxygenRate, originalMinPressure, originalMaxPressure, originalCalorie, originalWeight, originalMemo} = medicalReport;
-    const originalDate = medicalReport.date;
-    const originalThermometer = medicalReport.thermometer;
-    const originalHeartRate = medicalReport.heartRate;
-    const originalBreathingRate = medicalReport.breathingRate;
-    const originalOxygenRate = medicalReport.oxygenRate;
-    const originalMinPressure = medicalReport.minPressure;
-    const originalMaxPressure = medicalReport.maxPressure;
-    const originalCalorie = medicalReport.calorie;
-    const originalWeight = medicalReport.weight;
-    const originalMemo = medicalReport.memo;
+    const {showMedicalReport, setShowMedicalReport} = useContext(ShowUniqueReportContext);
+    console.log('showMedicalReport');
+    console.log(showMedicalReport);
+    const originalDate = showMedicalReport.date;
+    const originalThermometer = showMedicalReport.thermometer;
+    const originalHeartRate = showMedicalReport.heartRate;
+    const originalBreathingRate = showMedicalReport.breathingRate;
+    const originalOxygenRate = showMedicalReport.oxygenRate;
+    const originalMinPressure = showMedicalReport.minPressure;
+    const originalMaxPressure = showMedicalReport.maxPressure;
+    const originalCalorie = showMedicalReport.calorie;
+    const originalWeight = showMedicalReport.weight;
+    const originalMemo = showMedicalReport.memo;
 
     const [date, setDate] = useState<Date | null>(originalDate);
     const [thermometer, setThermometer] = useState<number>(originalThermometer);
@@ -87,9 +88,9 @@ export const MedicalReportShow = () => {
         try{
             const db = dbConnect();
             // const medicalReportRef = doc(collection(db, 'medical-report'));
-            console.log('medicalReport');
-            console.log(medicalReport);
-            const medicalReportRef = doc(db, 'medical-report', originalDate);
+            console.log('showMedicalReport');
+            console.log(showMedicalReport);
+            const medicalReportRef = doc(db, 'medical-report', showMedicalReport.id);
             // await setDoc(medicalReportRef, medicalReport);
             console.log('medicalReportRef');
             console.log(medicalReportRef);
@@ -253,7 +254,7 @@ export const MedicalReportShow = () => {
                                     endIcon={<SendIcon />}
                                     onClick={()=>(switchButton(false))}
                             > 修正 </Button> : 
-                            <>
+                            <Fragment>
                                 <Button variant="contained"
                                         endIcon={<SendIcon />}
                                         onClick={()=>(switchButton(true))}
@@ -263,7 +264,7 @@ export const MedicalReportShow = () => {
                                         endIcon={<SendIcon />}
                                         onClick={updateMedicalReport}
                                 > 修正決定 </Button>
-                            </>
+                            </Fragment>
                         }
                     </Grid>
                     {/* 6段目 */}
