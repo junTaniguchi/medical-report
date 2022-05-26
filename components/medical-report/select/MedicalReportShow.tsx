@@ -16,7 +16,7 @@ import { dbConnect } from "../../firebase/firestoreConnect";
 import { async } from '@firebase/util';
 
 export const MedicalReportShow = () => {
-    const [readOnly, switchButton] = useState<Boolean>(true);
+    const [readOnly, switchButton] = useState<boolean>(true);
     const {showMedicalReport, setShowMedicalReport} = useContext(ShowUniqueReportContext);
     const { showPageStatus, changeShowPageStatus } = useContext(OpenShowStatusContext);
     console.log('showMedicalReport');
@@ -32,7 +32,7 @@ export const MedicalReportShow = () => {
     const originalWeight = showMedicalReport.weight;
     const originalMemo = showMedicalReport.memo;
 
-    const [date, setDate] = useState<Date | null>(originalDate);
+    const [date, setDate] = useState<any>(originalDate);
     const [thermometer, setThermometer] = useState<number>(originalThermometer);
     const [heartRate, setHeartRate] = useState<number>(originalHeartRate);
     const [breathingRate, setBreathingRate] = useState<number>(originalBreathingRate);
@@ -74,7 +74,7 @@ export const MedicalReportShow = () => {
     }
     const updateMedicalReport = async () =>{
         const targetMedicalReport: MedicalReportType = {
-            date: date,
+            date: Timestamp.fromDate(date),
             thermometer: thermometer,
             heartRate: heartRate,
             breathingRate: breathingRate,

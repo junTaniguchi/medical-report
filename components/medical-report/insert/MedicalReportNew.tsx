@@ -15,14 +15,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 export const MedicalReportNew = (props:any) => {
-    const [readOnly, switchButton] = useState<Boolean>(false);
+    const [readOnly, switchButton] = useState<boolean>(false);
     const paperStyle = {
         wigth: "90%",
         margin: "16px",
         padding: "16px",
     }
     
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState<Date | null>(new Date());
     const [thermometer, setThermometer] = useState<number>(0.0);
     const [heartRate, setHeartRate] = useState<number>(0.0);
     const [breathingRate, setBreathingRate] = useState<number>(0.0);
