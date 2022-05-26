@@ -3,7 +3,7 @@
 // MedicalReportType.tsx
 export type SearchedMedicalReportType = {
     id: string;
-    date: Date | null;             // 日付
+    date: Date;             // 日付
     thermometer: number;    // 体温
     heartRate: number;     // 脈拍
     breathingRate: number; // 呼吸数
