@@ -31,6 +31,7 @@ export const MedicalReportNew = (props:any) => {
     const [maxPressure, setMaxPressure] = useState<number>(0.0);
     const [calorie, setCalorie] = useState<number>(0.0);
     const [weight, setWeight] = useState<number>(0.0);
+    const [memo, setMemo] = useState<string>("");
 
     const onChangeVT = (e: ChangeEvent<HTMLInputElement>) => {
         setThermometer(parseFloat(e.target.value));
@@ -56,6 +57,9 @@ export const MedicalReportNew = (props:any) => {
     const onChangeKg = (e: ChangeEvent<HTMLInputElement>) => {
         setWeight(parseFloat(e.target.value));
     }
+    const onChangeMemo = (e: ChangeEvent<HTMLInputElement>) => {
+        setMemo(e.target.value);
+    }
     const createMedicalReport = async () => {
         try{
             const db = dbConnect();
@@ -71,7 +75,7 @@ export const MedicalReportNew = (props:any) => {
                 maxPressure : maxPressure,
                 calorie : calorie,
                 weight : weight,
-                memo : ""
+                memo : memo
             }
             console.log('addMedicalReport');
             console.log(addMedicalReport);
@@ -203,6 +207,20 @@ export const MedicalReportNew = (props:any) => {
                             type='number'
                             label="体重(kg)"
                             onChange={onChangeKg}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            disabled={readOnly}
+                            id="outlined-required"
+                            type='text'
+                            label="備考"
+                            multiline
+                            fullWidth
+                            onChange={onChangeMemo}
                             InputLabelProps={{
                                 shrink: true,
                             }}

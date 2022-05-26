@@ -41,6 +41,7 @@ export const MedicalReportShow = () => {
     const [maxPressure, setMaxPressure] = useState<number>(originalMaxPressure);
     const [calorie, setCalorie] = useState<number>(originalCalorie);
     const [weight, setWeight] = useState<number>(originalWeight);
+    const [memo, setMemo] = useState<string>(originalMemo);
 
     const onChangeVT = (e: ChangeEvent<HTMLInputElement>) => {
         setThermometer(parseFloat(e.target.value));
@@ -65,6 +66,9 @@ export const MedicalReportShow = () => {
     }
     const onChangeKg = (e: ChangeEvent<HTMLInputElement>) => {
         setWeight(parseFloat(e.target.value));
+    }
+    const onChangeMemo = (e: ChangeEvent<HTMLInputElement>) => {
+        setMemo(e.target.value);
     }
 
     const paperStyle = {
@@ -233,6 +237,20 @@ export const MedicalReportShow = () => {
                             label="体重(kg)"
                             value={weight}
                             onChange={onChangeKg}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            disabled={readOnly}
+                            id="outlined-required"
+                            type='text'
+                            label="備考"
+                            multiline
+                            fullWidth
+                            onChange={onChangeMemo}
                             InputLabelProps={{
                                 shrink: true,
                             }}
